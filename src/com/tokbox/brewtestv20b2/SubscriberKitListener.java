@@ -26,7 +26,7 @@ public class SubscriberKitListener implements Subscriber.Listener {
     }
     
     @Override
-    public void connected(SubscriberKit subscriber) {
+    public void onConnected(SubscriberKit subscriber) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + subscriber + ")");
 
@@ -36,7 +36,7 @@ public class SubscriberKitListener implements Subscriber.Listener {
     }
 
     @Override
-    public void disconnected(SubscriberKit subscriber) {
+    public void onDisconnected(SubscriberKit subscriber) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + subscriber + ")");
 
@@ -57,19 +57,19 @@ public class SubscriberKitListener implements Subscriber.Listener {
     }
 
     @Override
-    public void videoDataReceived(SubscriberKit subscriber) {
+    public void onVideoDataReceived(SubscriberKit subscriber) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + subscriber + ")");
     }
 
     @Override
-    public void videoDisabled(SubscriberKit subscriber) {
+    public void onVideoDisabled(SubscriberKit subscriber) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + subscriber + ")");
     }
     
     @Override
-    public void error(SubscriberKit subscriber, OpentokError error) {
+    public void onError(SubscriberKit subscriber, OpentokError error) {
         Log.e(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + error.getErrorDomain() + ":" + error.getErrorCode()
                 + " - " + error.getMessage() + ")");

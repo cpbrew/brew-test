@@ -29,7 +29,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void connected(Session session) {
+    public void onConnected(Session session) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + session + ")");
         
@@ -40,7 +40,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void disconnected(Session session) {
+    public void onDisconnected(Session session) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + session + ")");
 
@@ -61,19 +61,19 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void connectionCreated(Session session, Connection connection) {
+    public void onConnectionCreated(Session session, Connection connection) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + connection.getConnectionId() + ")");
     }
     
     @Override
-    public void connectionDestroyed(Session session, Connection connection) {
+    public void onConnectionDestroyed(Session session, Connection connection) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + connection.getConnectionId() + ")");
     }
     
     @Override
-    public void addPublisher(Session session, PublisherKit publisher) {
+    public void onPublisherAdded(Session session, PublisherKit publisher) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + publisher + ")");
 
@@ -83,7 +83,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void removePublisher(Session session, PublisherKit publisher) {
+    public void onPublisherRemoved(Session session, PublisherKit publisher) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + publisher + ")");
 
@@ -102,7 +102,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void receivedStream(Session session, Stream stream) {
+    public void onStreamReceived(Session session, Stream stream) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ")");
 
@@ -110,7 +110,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void droppedStream(Session session, Stream stream) {
+    public void onStreamDropped(Session session, Stream stream) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ")");
 
@@ -118,14 +118,14 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void streamChangeHasAudio(Session session, Stream stream,
+    public void onStreamHasAudioChanged(Session session, Stream stream,
             boolean hasAudio) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ", " + hasAudio + ")");
     }
 
     @Override
-    public void streamChangeHasVideo(Session session, Stream stream,
+    public void onStreamHasVideoChanged(Session session, Stream stream,
             boolean hasVideo) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ", " + hasVideo + ")");
@@ -145,7 +145,7 @@ public class SessionListener implements Session.Listener {
 //    }
     
     @Override
-    public void streamChangeVideoDimensions(Session session, Stream stream,
+    public void onStreamVideoDimensionsChanged(Session session, Stream stream,
             int width, int height) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ", " + width + "x" + height
@@ -153,7 +153,7 @@ public class SessionListener implements Session.Listener {
     }
     
     @Override
-    public void signalReceived(Session session, String type, String data,
+    public void onSignalReceived(Session session, String type, String data,
             Connection connection) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + type + ", " + data + ", " + connection.getConnectionId()
@@ -161,19 +161,19 @@ public class SessionListener implements Session.Listener {
     }
 
     @Override
-    public void archiveStart(Session session) {
+    public void onArchiveStarted(Session session) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + session.getSessionId() + ")");
     }
 
     @Override
-    public void archiveStop(Session session) {
+    public void onArchiveStopped(Session session) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + session.getSessionId() + ")");
     }
     
     @Override
-    public void error(Session session, OpentokError error) {
+    public void onError(Session session, OpentokError error) {
         Log.e(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + error.getErrorDomain() + ":" + error.getErrorCode()
                 + " - " + error.getMessage() + ")");

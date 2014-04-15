@@ -27,7 +27,7 @@ public class PublisherKitListener implements Publisher.Listener {
     }
     
     @Override
-    public void streamCreated(PublisherKit publisher, Stream stream) {
+    public void onStreamCreated(PublisherKit publisher, Stream stream) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ")");
         
@@ -35,7 +35,7 @@ public class PublisherKitListener implements Publisher.Listener {
     }
     
     @Override
-    public void streamDestroyed(PublisherKit publisher, Stream stream) {
+    public void onStreamDestroyed(PublisherKit publisher, Stream stream) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + stream.getStreamId() + ")");
         
@@ -43,13 +43,13 @@ public class PublisherKitListener implements Publisher.Listener {
     }
 
     @Override
-    public void changedCamera(PublisherKit publisher, int newCameraId) {
+    public void onCameraChanged(PublisherKit publisher, int newCameraId) {
         Log.i(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + newCameraId + ")");
     }
 
     @Override
-    public void error(PublisherKit publisher, OpentokError error) {
+    public void onError(PublisherKit publisher, OpentokError error) {
         Log.e(LOG_TAG, Thread.currentThread().getStackTrace()[2].getMethodName()
                 + "(" + error.getErrorDomain() + ":" + error.getErrorCode()
                 + " - " + error.getMessage() + ")");
