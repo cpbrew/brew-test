@@ -1,11 +1,11 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 
 import com.opentok.android.Subscriber;
-import com.tokbox.brewtestv20b2.OptionsMenu.MenuItem;
+import com.tokbox.brewtest.OptionsMenu.MenuItem;
 
 /**
  * Manages subscriber options such as setting subscribeToAudio and

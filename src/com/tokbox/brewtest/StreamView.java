@@ -1,4 +1,4 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,9 +9,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
+import com.tokbox.brewtest.R;
 
 /**
  * Contains a stream and possibly a subscriber.

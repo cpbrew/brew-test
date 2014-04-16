@@ -1,4 +1,4 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -24,13 +23,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
-
 import com.opentok.android.OpenTokConfig;
 import com.opentok.android.Publisher;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.api.OpenTokSDK;
 import com.opentok.exception.OpenTokException;
+import com.tokbox.brewtest.R;
 
 /**
  * An app for manual testing.

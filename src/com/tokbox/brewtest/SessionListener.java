@@ -1,13 +1,13 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import android.database.DataSetObserver;
 import android.util.Log;
-
 import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
+import com.tokbox.brewtest.R;
 
 /**
  * Handles all of the Session.Listener callbacks.

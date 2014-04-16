@@ -1,10 +1,10 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import android.util.Log;
-
 import com.opentok.android.OpentokError;
 import com.opentok.android.Subscriber;
 import com.opentok.android.SubscriberKit;
+import com.tokbox.brewtest.R;
 
 /**
  * Handles all of the SubscriberKit.Listener callbacks.

@@ -1,11 +1,11 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import android.util.Log;
-
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
 import com.opentok.android.Stream;
+import com.tokbox.brewtest.R;
 
 /**
  * Handles all of the Publisher.Listener callbacks.

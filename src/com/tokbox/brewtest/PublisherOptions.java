@@ -1,11 +1,11 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 
 import com.opentok.android.Publisher;
-import com.tokbox.brewtestv20b2.OptionsMenu.MenuItem;
+import com.tokbox.brewtest.OptionsMenu.MenuItem;
 
 /**
  * Manages publisher options such as setting publishAudio, publishVideo, and

@@ -1,4 +1,4 @@
-package com.tokbox.brewtestv20b2;
+package com.tokbox.brewtest;
 
 /**
  * Provides various config parameters for the sample app.
