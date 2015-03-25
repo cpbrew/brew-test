@@ -1,5 +1,7 @@
 package com.tokbox.brewtest;
 
+import static com.tokbox.brewtest.Config.LOG_TAG;
+
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.database.DataSetObserver;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,13 +24,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
+
 import com.opentok.android.OpenTokConfig;
 import com.opentok.android.Publisher;
 import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.api.OpenTokSDK;
 import com.opentok.exception.OpenTokException;
-import com.tokbox.brewtest.R;
 
 /**
  * An app for manual testing.
@@ -37,8 +38,6 @@ import com.tokbox.brewtest.R;
  */
 public class MainActivity extends Activity implements ListAdapter {
 
-    private static final String LOG_TAG = "brewer";
-    
     private static String token;
     
     private Button mConnectButton;
@@ -50,7 +49,7 @@ public class MainActivity extends Activity implements ListAdapter {
     private PublisherOptions mPublisherOptions;
     
     private SessionListener mSessionListener;
-    private PublisherKitListener mPublisherKitListener;
+    private PublisherListener mPublisherListener;
     
     private Map<String, StreamView> mStreamViewMap;
     private List<StreamView> mStreamViewList;
@@ -67,7 +66,7 @@ public class MainActivity extends Activity implements ListAdapter {
         
         if (null != Config.BASE_URL) {
             try {
-                OpenTokConfig.setAPIRootURL(Config.BASE_URL, false);
+                OpenTokConfig.setAPIRootURL(Config.BASE_URL);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 System.exit(1);
@@ -101,9 +100,6 @@ public class MainActivity extends Activity implements ListAdapter {
         mPublisherOptions = new PublisherOptions(this);
         
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        AudioManager audio =
-                (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        audio.setSpeakerphoneOn(true);
     }
     
     @Override
@@ -137,12 +133,19 @@ public class MainActivity extends Activity implements ListAdapter {
         view.setEnabled(false);
         
         if (null == mSession) {
+            Log.i(LOG_TAG, "Session is " +
+                (Util.isP2PSession(Config.SESSION_ID) ? "" : "NOT ") + "p2p");
+            
             mSessionListener = new SessionListener(this);
-            mSession = new Session(this, Integer.toString(Config.API_KEY),
-                    Config.SESSION_ID, mSessionListener);
+            mSession = new Session(this,
+            		Integer.toString(Config.API_KEY),
+            		Config.SESSION_ID);
+            mSession.setSessionListener(mSessionListener);
+            mSession.setConnectionListener(mSessionListener);
+            mSession.setStreamPropertiesListener(mSessionListener);
+            mSession.setSignalListener(mSessionListener);
+            mSession.setArchiveListener(mSessionListener);
             mSession.connect(token);
-//            mSession = new Session(this, Config.SESSION_ID, mSessionListener);
-//            mSession.connect(Integer.toString(Config.API_KEY), token);
         } else {
             mSession.disconnect();
         }
@@ -159,9 +162,11 @@ public class MainActivity extends Activity implements ListAdapter {
         view.setEnabled(false);
         
         if (null == mPublisher) {
-            mPublisherKitListener = new PublisherKitListener(this);
-            mPublisher = new Publisher(this, mPublisherKitListener,
-                    "Hello from Android!");
+            mPublisherListener = new PublisherListener(this);
+            mPublisher = new Publisher(this, "Hello from Android!");
+            mPublisher.setPublisherListener(mPublisherListener);
+            mPublisher.setAudioLevelListener(mPublisherListener);
+            mPublisher.setCameraListener(mPublisherListener);
             
             mPublisherOptions.setPublisher(mPublisher);
             
@@ -181,6 +186,8 @@ public class MainActivity extends Activity implements ListAdapter {
      * @param view
      */
     public void toggleOptions(View view) {
+//        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        
         new AlertDialog.Builder(this)
             .setInverseBackgroundForced(true)
             .setView(mPublisherOptions.getMenu())
@@ -314,9 +321,8 @@ public class MainActivity extends Activity implements ListAdapter {
         mPublisher = publisher;
     }
 
-    public void setPublisherKitListener(
-            PublisherKitListener publisherKitListener) {
-        mPublisherKitListener = publisherKitListener;
+    public void setPublisherListener(PublisherListener publisherListener) {
+        mPublisherListener = publisherListener;
     }
 
     public RelativeLayout getPublisherView() {

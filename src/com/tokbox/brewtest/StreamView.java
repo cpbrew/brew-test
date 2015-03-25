@@ -1,5 +1,7 @@
 package com.tokbox.brewtest;
 
+import static com.tokbox.brewtest.Config.LOG_TAG;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
@@ -20,8 +22,6 @@ import com.tokbox.brewtest.R;
  */
 public class StreamView extends LinearLayout {
     
-    private static final String LOG_TAG = "brewer";
-    
     private MainActivity mMainActivity;
     private TextView mTitle;
     private Button mSubscribeButton;
@@ -30,7 +30,7 @@ public class StreamView extends LinearLayout {
     
     private Stream mStream;
     private Subscriber mSubscriber;
-    private SubscriberKitListener mSubscriberKitListener;
+    private SubscriberListener mSubscriberListener;
     private SubscriberOptions mSubscriberOptions;
 
     private StreamView(Context context) {
@@ -109,10 +109,14 @@ public class StreamView extends LinearLayout {
                     addView(mSubscriberView, new LayoutParams((int) width,
                             (int) height));
                     
-                    mSubscriberKitListener = new SubscriberKitListener(
+                    mSubscriberListener = new SubscriberListener(
                             StreamView.this);
-                    mSubscriber = new Subscriber(mMainActivity, mStream,
-                            mSubscriberKitListener);
+                    mSubscriber = new Subscriber(mMainActivity, mStream);
+                    mSubscriber.setSubscriberListener(mSubscriberListener);
+                    mSubscriber.setVideoListener(mSubscriberListener);
+                    mSubscriber.setAudioLevelListener(mSubscriberListener);
+                    mSubscriber.setAudioStatsListener(mSubscriberListener);
+                    mSubscriber.setVideoStatsListener(mSubscriberListener);
                     mSubscriberOptions.setSubscriber(mSubscriber);
                     mSubscriberView.addView(mSubscriber.getView(), params);
                     
@@ -142,9 +146,8 @@ public class StreamView extends LinearLayout {
         mSubscriber = subscriber;
     }
     
-    public void setSubscriberKitListener(
-            SubscriberKitListener subscriberKitListener) {
-        mSubscriberKitListener = subscriberKitListener;
+    public void setSubscriberListener(SubscriberListener subscriberListener) {
+        mSubscriberListener = subscriberListener;
     }
     
     public RelativeLayout getSubscriberView() {
